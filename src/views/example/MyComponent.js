@@ -10,11 +10,19 @@ class MyComponent extends React.Component {
             {id: '3', title: 'Project Mangager', salary: '$1000'},
         ]
     }
+    addNewJob = (job) => {
+        console.log('Check in Parent: ', job)
+        this.setState({
+            jobs: [...this.state.jobs, job]
+        })
+    }
 
     render() {
         return (
             <>
-                <AddComponent />               
+                <AddComponent 
+                    addNewJob = {this.addNewJob}
+                />               
                 <ChildComponent 
                     jobs={this.state.jobs}
                 />
