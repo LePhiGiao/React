@@ -24,7 +24,7 @@ class MyComponent extends React.Component {
         })
     }
     componentDidUpdate(prevProps, prevState) {
-
+        console.log('prevState', prevState, '>>>> current State', this.state)
     }
 
     componentDidMount() {
