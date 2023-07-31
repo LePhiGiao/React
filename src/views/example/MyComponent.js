@@ -23,8 +23,16 @@ class MyComponent extends React.Component {
             jobs: newJobs
         })
     }
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
+    componentDidMount() {
+        console.log('>>>> Run Component did Mouse')
+    }
 
     render() {
+        console.log('>>>> Call Render')
         return (
             <>
                 <AddComponent 
