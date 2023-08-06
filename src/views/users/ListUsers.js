@@ -1,13 +1,18 @@
 import React from 'react'
 import axios from 'axios';
 import './ListUsers.scss'
+import { redirect } from "react-router-dom";
 
 class ListUsers extends React.Component {
 
     state = {
-        listUsers: []
+        listUsers: [],
     }
 
+    handleDetailUser = (user) => {
+        redirect(`user/${user.id}`);
+ 
+    }
     componentDidMount() {
         axios.get('https://reqres.in/api/users?page=1')
             .then(res => {
@@ -30,7 +35,10 @@ class ListUsers extends React.Component {
                     {listUsers && listUsers.length > 0 &&
                         listUsers.map((item, index) => {
                             return (
-                                <div className='child' key={item.id}>
+                                <div className='child' 
+                                    key={item.id}
+                                    onClick={() => this.handleDetailUser(item)}
+                                >
                                     {index + 1} - {item.first_name} - {item.last_name}
                                 </div>
                             )
