@@ -1,48 +1,42 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import axios from 'axios';
-import { redirect } from "react-router-dom";
+import { useParams, useNavigate  } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
+function DetailUser () {
+    let { id } = useParams()
+    let navigate = useNavigate();
+    const [user, setUser] = useState({})
 
-class DetailUser extends React.Component {
-    state = {
-        user: {}
-    } 
-    async componentDidMount() {
-        if (window.location.href.split('/')[4]) {
-            let userId = window.location.href.split('/')[4]
-            await axios.get(`https://reqres.in/api/users/${userId}`)
-            .then(res => {  
-                this.setState({
-                    user: res && res.data && res.data.data ? res.data.data : {}
-                })
-            })
-        }   
+    useEffect(() => {
+        axios.get(`https://reqres.in/api/users/${id}`)
+        .then(res => {  
+            setUser(res && res.data && res.data.data ? res.data.data : {})     
+        })
+    }, [id])
+
+    const handleBackButton = () => {
+        navigate("/user");
     }
-    handleBackButton = () => {
-        console.log('Click')
-        redirect("/user");
-    }
-    render() {
-        let { user } = this.state
-        let isEmptyObj = Object.keys(user).length === 0;
-        return (
+    let isEmptyObj = Object.keys(user).length === 0;
+    return (
+        <>
+            <div>HELLO DETAIL USER</div>
+            {isEmptyObj === false && 
             <>
-                <div>HELLO DETAIL USER</div>
-                {isEmptyObj === false && 
-                <>
-                    <div>User's name: {user.first_name} - {user.last_name}</div>
-                    <div>User's email: {user.last_name}</div>
-                    <div>
-                        <img src={user.avatar}/>
-                    </div>
-                    <div>
-                        <button type='button' onClick={() => this.handleBackButton()}>Back</button>
-                    </div>
-                </>}
-            </>
-        )
-    }
+                <div>User's name: {user.first_name} - {user.last_name}</div>
+                <div>User's email: {user.last_name}</div>
+                <div>
+                    <img src={user.avatar}/>
+                </div>
+                <div>
+                    <button type='button' onClick={() => handleBackButton()}>Back</button>
+                </div>
+            </>}
+        </>
+    )
+
     
 }
 

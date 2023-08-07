@@ -26,8 +26,8 @@ function App() {
             <Route path="/" exact element={<Home />}></Route>
             <Route path="/todo" element={<ListTodo />}></Route>
             <Route path="/about" element={<MyComponent/>}></Route>
-            <Route path='/user/:id' element={<DetailUser />}></Route>
             <Route path='/user' exact element={<ListUsers />}></Route>
+            <Route path='/user/:id' element={<DetailUser />}></Route>
           </Routes>  
         </header>
 
